@@ -56,7 +56,7 @@ class AddressBookController extends Controller
                 
                 // make it optional so you don't have to re-upload the PDF file
                 // every time you edit the Product details
-                'required' => false,
+                /*'required' => false,
                 
                 // unmapped fields can't define their validation using annotations
                 // in the associated entity, so you can use the PHP constraint classes
@@ -69,7 +69,7 @@ class AddressBookController extends Controller
                         ],
                         'mimeTypesMessage' => 'Please upload a JPG/PNG',
                     ])
-                ]
+                ]*/
             ])
             ->add('save', SubmitType::class, ['attr'=>array('class' =>'btn btn-success'),'label' => 'Create Contact'])
             ->getForm();
