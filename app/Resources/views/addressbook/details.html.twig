@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<a class="btn btn-info" href="/"> Back to Contacts</a>
+	<hr>
+	<h2 class="page-header"> Details of Contact: {{contact.firstName}} </h2>
+	<ul class="list-group">
+		<li class="list-group-item">Last Name: {{contact.lastName}} </li>
+		<li class="list-group-item">Street Name: {{contact.streetName}} </li>
+		<li class="list-group-item">Street No: {{contact.streetNo}} </li>
+		<li class="list-group-item">Country: {{contact.country}} </li>
+		<li class="list-group-item">City: {{contact.city}} </li>
+		<li class="list-group-item">Zip: {{contact.zip}} </li>
+		<li class="list-group-item">DateOf Birth: {{contact.dob|date("F j, Y")}} </li>
+		<li class="list-group-item">Phone {{contact.phone}} </li>
+		<li class="list-group-item">Email: {{contact.email}} </li>
+		<li class="list-group-item">Picture {{contact.picture}} </li>
+		
+	</ul>
+{% endblock %}
