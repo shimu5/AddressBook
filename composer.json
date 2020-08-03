@@ -1,5 +1,5 @@
 {
-    "name": "shimu/saddressbook",
+    "name": "shimu/addressbook",
     "license": "proprietary",
     "type": "project",
     "autoload": {
