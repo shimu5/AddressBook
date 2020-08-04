@@ -41,9 +41,9 @@
   			<img src="{{ asset('uploads/' ~ contact.picture)}}" alt="{{contact.firstName}}" class="img-thumb">	
 	  </td>
       <td>
-        <a href="{{ path('addrbook_details', {'id': contact.id}) }}" class="btn btn-sm btn-success" ><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-        <a href="{{ path('addrbook_edit', {'id': contact.id}) }}" class="btn btn-sm btn-primary" ><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-        <a href="{{ path('addrbook_delete', {'id': contact.id}) }}" class="btn btn-sm btn-danger" ><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+        <a href="{{ path('addrbook_details', {'id': contact.id}) }}" class="btn btn-sm btn-success" title ="View"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+        <a href="{{ path('addrbook_edit', {'id': contact.id}) }}" class="btn btn-sm btn-primary" title ="Edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+        <a href="{{ path('addrbook_delete', {'id': contact.id}) }}" class="btn btn-sm btn-danger" title ="Delete" onclick="return confirm('Are you sure you want to delete this item?');"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
       </td>
     </tr>    
     {% endfor %}
