@@ -357,7 +357,7 @@ class Contacts
      *
      * @return Contacts
      */
-    public function setPicture(File $picture = null )
+    public function setPicture($picture)
     {
         $this->picture = $picture;
 

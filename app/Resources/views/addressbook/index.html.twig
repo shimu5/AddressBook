@@ -36,12 +36,14 @@
       <td>{{contact.country}}</td>
       <td>{{contact.phone}}</td>
       <td>{{contact.dob|date("F j, Y")}}</td>
-       <td>{{contact.email}}</td>
-      <td>{{contact.picture}}</td>
+      <td>{{contact.email}}</td>
       <td>
-        <a href="/contacts/view/{{contact.id}}" class="btn btn-sm btn-success" >View</a>
-        <a href="/contacts/edit/{{contact.id}}" class="btn btn-sm btn-primary" >Edit</a>
-        <a href="/contacts/delete/{{contact.id}}" class="btn btn-sm btn-danger" >Delete</a>
+  			<img src="{{ asset('uploads/' ~ contact.picture)}}" alt="{{contact.firstName}}">	
+	  </td>
+      <td>
+        <a href="{{ path('addrbook_details', {'id': contact.id}) }}" class="btn btn-sm btn-success" >View</a>
+        <a href="{{ path('addrbook_edit', {'id': contact.id}) }}" class="btn btn-sm btn-primary" >Edit</a>
+        <a href="{{ path('addrbook_delete', {'id': contact.id}) }}" class="btn btn-sm btn-danger" >Delete</a>
       </td>
     </tr>    
     {% endfor %}

@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<a class="btn btn-info" href="/"> Back to Contacts</a>
+	<a class="btn btn-info" href="{{ path('contact_list') }}"> Back to Contacts</a>
 	<hr>
 	<h2 class="page-header"> Details of Contact: {{contact.firstName}} </h2>
 	<ul class="list-group">
@@ -14,7 +14,7 @@
 		<li class="list-group-item">DateOf Birth: {{contact.dob|date("F j, Y")}} </li>
 		<li class="list-group-item">Phone {{contact.phone}} </li>
 		<li class="list-group-item">Email: {{contact.email}} </li>
-		<li class="list-group-item">Picture {{contact.picture}} </li>
+		<li class="list-group-item">Picture: <img src="{{ asset('uploads/' ~ contact.picture)}}" alt="{{contact.firstName}}">	 </li>
 		
 	</ul>
 {% endblock %}

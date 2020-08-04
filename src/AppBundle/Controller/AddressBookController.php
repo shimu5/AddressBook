@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Contacts;
+use AppBundle\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,16 +25,12 @@ class AddressBookController extends Controller
             ->findAll();
 
         return $this->render('addressbook/index.html.twig',array('contacts' => $contact_list));
-
-       /* return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);*/
     }
 
     /**
      * @Route("/contacts/create", name="addrbook_create")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request,FileUploader $fileUploader)
     {
         $contact = new Contacts;
         $form = $this->createFormBuilder($contact)
@@ -52,15 +49,15 @@ class AddressBookController extends Controller
                 'label' => 'Photo',
                 
                 // unmapped means that this field is not associated to any entity property
-               // 'mapped' => false,
+                 'mapped' => false,
                 
-                // make it optional so you don't have to re-upload the PDF file
+                // make it optional so you don't have to re-upload the file
                 // every time you edit the Product details
-                /*'required' => false,
+                'required' => false,
                 
                 // unmapped fields can't define their validation using annotations
                 // in the associated entity, so you can use the PHP constraint classes
-                'constraints' => [
+                /*'constraints' => [
                     new File([
                         'maxSize' => '1024k',
                         'mimeTypes' => [
@@ -77,6 +74,14 @@ class AddressBookController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+            
+            $contactPicFile = $form->get('picture')->getData();
+            if ($contactPicFile) {
+                $contactPicFileName = $fileUploader->upload($contactPicFile);
+                $contact->setPicture($contactPicFileName);
+            }
+            
+            
             $fname = $form['firstName']->getData();
             $lastName = $form['lastName']->getData();
             $streetName = $form['streetName']->getData();
@@ -87,7 +92,7 @@ class AddressBookController extends Controller
             $phone = $form['phone']->getData();
             $dob = $form['dob']->getData();
             $email = $form['email']->getData();
-            $picture = $form['picture']->getData();
+            //$picture = $form['picture']->getData();
             
             $contact->setFirstName($fname);
             $contact->setLastName($lastName);
@@ -99,7 +104,6 @@ class AddressBookController extends Controller
             $contact->setDob($dob);
             $contact->setPhone($phone);
             $contact->setEmail($email);
-            $contact->setPicture($picture);
             
             $em = $this->getDoctrine()->getManager();
             $em->persist($contact);
@@ -129,7 +133,7 @@ class AddressBookController extends Controller
      /**
      * @Route("/contacts/edit/{id}", name="addrbook_edit")
      */
-    public function editAction($id, Request $request)
+    public function editAction($id, Request $request, FileUploader $fileUploader)
     {  
         $contact = $this->getDoctrine()
         ->getRepository('AppBundle:Contacts')
@@ -145,7 +149,7 @@ class AddressBookController extends Controller
         $contact->setDob($contact->getDob());
         $contact->setPhone($contact->getPhone());
         $contact->setEmail($contact->getEmail());
-       // $contact->setPicture($contact->getPicture());
+        $contact->setPicture($contact->getPicture());
     
         $form = $this->createFormBuilder($contact)
         ->add('firstName', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
@@ -158,17 +162,19 @@ class AddressBookController extends Controller
         ->add('phone', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
         ->add('dob', DateType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
         ->add('email', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
-       /* ->add('picture', FileType::class, [
+        ->add('picture', FileType::class, [
             'attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px'),
             'label' => 'Photo',
-            
+            'mapped' => false,
+            'required' => false,
           
-        ])*/
+        ])
         ->add('save', SubmitType::class, ['attr'=>array('class' =>'btn btn-success'),'label' => 'Edit Contact'])
         ->getForm();
         $form->handleRequest($request);
-        
+       // var_dump($fileUploader->getTargetDirectory()); die;
         if($form->isSubmitted() && $form->isValid()){
+            
             $firstname = $form['firstName']->getData();
             $lastName = $form['lastName']->getData();
             $streetName = $form['streetName']->getData();
@@ -179,10 +185,18 @@ class AddressBookController extends Controller
             $phone = $form['phone']->getData();
             $dob = $form['dob']->getData();
             $email = $form['email']->getData();
-         //   $picture = $form['picture']->getData();
+
             
             $em = $this->getDoctrine()->getManager();
             $em->getRepository('AppBundle:Contacts')->find($id);
+            
+            $contactPicFile = $form->get('picture')->getData();
+            
+            if ($contactPicFile) {
+                unlink($fileUploader->getTargetDirectory().$contactPicFile);
+                $contactPicFileName = $fileUploader->upload($contactPicFile);
+                $contact->setPicture($contactPicFileName);
+            }
             
             $contact->setFirstName($firstname);
             $contact->setLastName($lastName);
@@ -194,9 +208,7 @@ class AddressBookController extends Controller
             $contact->setDob($dob);
             $contact->setPhone($phone);
             $contact->setEmail($email);
-         //   $contact->setPicture($picture);
-            
-            
+                      
             $em->flush();
             
             $this->addFlash(
@@ -218,11 +230,13 @@ class AddressBookController extends Controller
      */
     public function deleteAction($id)
     {
-       /* $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         $contact = $em->getRepository('AppBundle:Contacts')->find($id);
-        $em->remove($contact);
-        $em->flush();
-        */
+       /* $em->remove($contact);
+        $em->flush();*/
+        
+        unlink("../web/uploads/".$contact->getPicture());
+        
         $this->addFlash(
             'notice',
             'Contact Removed'
