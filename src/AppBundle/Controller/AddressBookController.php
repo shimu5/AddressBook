@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -42,7 +43,7 @@ class AddressBookController extends Controller
             ->add('city', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
             ->add('country', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
             ->add('phone', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
-            ->add('dob', DateType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
+            ->add('dob', BirthdayType::class, array('attr'=>array('class' =>'form-control datepicker-here', 'style'=>'margin-bottom:15px', 'data-position'=>'right top')))
             ->add('email', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
             ->add('picture', FileType::class, [
                 'attr'=>array('class' =>'form-control-file', 'style'=>'margin-bottom:15px'),
@@ -160,7 +161,7 @@ class AddressBookController extends Controller
         ->add('city', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
         ->add('country', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
         ->add('phone', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
-        ->add('dob', DateType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
+        ->add('dob', BirthdayType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
         ->add('email', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
         ->add('picture', FileType::class, [
             'attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px'),
@@ -172,7 +173,6 @@ class AddressBookController extends Controller
         ->add('save', SubmitType::class, ['attr'=>array('class' =>'btn btn-success'),'label' => 'Edit Contact'])
         ->getForm();
         $form->handleRequest($request);
-       // var_dump($fileUploader->getTargetDirectory()); die;
         if($form->isSubmitted() && $form->isValid()){
             
             $firstname = $form['firstName']->getData();
@@ -193,7 +193,8 @@ class AddressBookController extends Controller
             $contactPicFile = $form->get('picture')->getData();
             
             if ($contactPicFile) {
-                unlink($fileUploader->getTargetDirectory().$contactPicFile);
+                if(file_exists("../web/uploads/".$contactPicFile))
+                        unlink("../web/uploads/".$contactPicFile);
                 $contactPicFileName = $fileUploader->upload($contactPicFile);
                 $contact->setPicture($contactPicFileName);
             }
@@ -232,9 +233,9 @@ class AddressBookController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $contact = $em->getRepository('AppBundle:Contacts')->find($id);
-       /* $em->remove($contact);
-        $em->flush();*/
-        
+        $em->remove($contact);
+        $em->flush();
+
         unlink("../web/uploads/".$contact->getPicture());
         
         $this->addFlash(

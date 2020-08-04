@@ -12,6 +12,7 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 	<link rel="stylesheet" href="{{asset('css/mystyle.css')}}" >
     
     {% block stylesheets %}{% endblock %}
@@ -19,41 +20,41 @@
 
   </head>
   <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a class="navbar-brand" href="{{ path('contact_list') }}">AddressBook</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+		    <a class="navbar-brand" href="{{ path('contact_list') }}">AddressBook</a>
+		    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
 
-  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="{{ path('contact_list') }}">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="{{ path('addrbook_create') }}">Add Contact</a>
-      </li>
-    </ul>
-   
-  </div>
-</nav>
+		  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+		    <ul class="navbar-nav mr-auto">
+		      <li class="nav-item active">
+		        <a class="nav-link" href="{{ path('contact_list') }}">Home <span class="sr-only">(current)</span></a>
+		      </li>
+		      <li class="nav-item active">
+		        <a class="nav-link" href="{{ path('addrbook_create') }}">Add Contact</a>
+		      </li>
+		    </ul>
+		  </div>
+		</nav>
 
-<div class="page-container p-5 ">
-    <div class="row">
-        <div class="col-md-12 ">
-        	{% for flash_message in app.session.flashbag.get('notice') %}
-        		<div class="alert alert-success">{{flash_message}}</div>
-        	{% endfor %}
-        	
-        	{% for flash_message in app.session.flashbag.get('error') %}
-        		<div class="alert alert-danger">{{flash_message}}</div>
-        	{% endfor %}
-        	
-            {% block body %}{% endblock %}
-        </div>
-    </div>  
-</div> <!-- /..container -->
-
+		<div class="page-container p-5 ">
+		    <div class="row">
+		        <div class="col-md-12 ">
+		        	{% for flash_message in app.session.flashbag.get('notice') %}
+		        		<div class="alert alert-success">{{flash_message}}</div>
+		        	{% endfor %}
+		        	
+		        	{% for flash_message in app.session.flashbag.get('error') %}
+		        		<div class="alert alert-danger">{{flash_message}}</div>
+		        	{% endfor %}
+		        	
+		            {% block body %}{% endblock %}
+		        </div>
+		    </div>  
+		</div> <!-- /..container -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
 {% block javascripts %}{% endblock %}
 </body>
 </html>

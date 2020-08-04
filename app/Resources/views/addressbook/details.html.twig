@@ -14,7 +14,7 @@
 		<li class="list-group-item">DateOf Birth: {{contact.dob|date("F j, Y")}} </li>
 		<li class="list-group-item">Phone {{contact.phone}} </li>
 		<li class="list-group-item">Email: {{contact.email}} </li>
-		<li class="list-group-item">Picture: <img src="{{ asset('uploads/' ~ contact.picture)}}" alt="{{contact.firstName}}">	 </li>
+		<li class="list-group-item">Picture: <img src="{{ asset('uploads/' ~ contact.picture)}}" alt="{{contact.firstName}}" class="img-thumb">	 </li>
 		
 	</ul>
 {% endblock %}
