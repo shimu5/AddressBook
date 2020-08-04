@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Contacts
@@ -24,77 +25,79 @@ class Contacts
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
+     * @Assert\Length(min=3)
      * @ORM\Column(name="first_name", type="string", length=255)
      */
     private $firstName;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="last_name", type="string", length=255)
      */
     private $lastName;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="street_name", type="string", length=255)
      */
     private $streetName;
 
     /**
      * @var int
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="street_no", type="integer")
      */
     private $streetNo;
 
     /**
      * @var int
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="zip", type="integer")
      */
     private $zip;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="city", type="string", length=255)
      */
     private $city;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="country", type="string", length=255)
      */
     private $country;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="phone", type="string", length=50)
      */
     private $phone;
 
     /**
      * @var \DateTime
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="dob", type="date")
      */
     private $dob;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
+     * @Assert\Email
+     * 
      * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;
 
     /**
      * @var string
-     *
      * @ORM\Column(name="picture", type="string", length=255, unique=true)
      */
     private $picture;

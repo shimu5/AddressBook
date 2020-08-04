@@ -35,7 +35,7 @@ class AddressBookController extends Controller
     {
         $contact = new Contacts;
         $form = $this->createFormBuilder($contact)
-            ->add('firstName', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
+        ->add('firstName', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
             ->add('lastName', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
             ->add('streetName', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
             ->add('streetNo', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
