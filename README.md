@@ -1,9 +1,9 @@
 # AddressBook
 
 A Symfony project created on August 2, 2020, 2:33 pm.
-#### An address book in with add, edit and delete and view entries. You should also have an overview of all contacts.
+#### An address book is with add, edit and delete and view entries. You should also have an overview of all contacts.
 
-##### The address book  contain the following data:
+##### The address book contain the following data:
 * Firstname
 * Lastname
 * Street and number
