@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -38,8 +39,8 @@ class AddressBookController extends Controller
         ->add('firstName', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
             ->add('lastName', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
             ->add('streetName', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
-            ->add('streetNo', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
-            ->add('zip', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
+            ->add('streetNo', IntegerType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
+            ->add('zip', IntegerType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
             ->add('city', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
             ->add('country', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
             ->add('phone', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
@@ -156,8 +157,8 @@ class AddressBookController extends Controller
         ->add('firstName', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
         ->add('lastName', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
         ->add('streetName', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
-        ->add('streetNo', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
-        ->add('zip', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
+        ->add('streetNo', IntegerType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
+        ->add('zip', IntegerType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
         ->add('city', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
         ->add('country', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))
         ->add('phone', TextType::class, array('attr'=>array('class' =>'form-control', 'style'=>'margin-bottom:15px')))

@@ -16,3 +16,5 @@ body {}
 .table-condensed{
   font-size: 12px;
 }
+
+form ul li { color:red;}
